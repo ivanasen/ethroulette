@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 import ThemeProvider from './components/ThemeProvider'
 import Header from './components/Header'
+import BettingScreen from './screens/BettingScreen'
 
 const AppContainer = styled.div `
   background: #37474F;
@@ -17,18 +18,16 @@ class App extends React.Component {
     super(props)
 
     this.state = {
+      accountAddress: null,
       accountBalance: 0,
       storageValue: 0,
       web3: null
     }
   }
 
-  updateBalance = (account) => {
-    this
-      .state
-      .web3
-      .eth
-      .getBalance(account, (err, balance) => {
+  updateAccountProps = (account) => {
+    this.setState({ accountAddress: account })
+    this.state.web3.eth.getBalance(account, (err, balance) => {
         if (err) {
           console.error('Error fetching account balance.')
         } else {
@@ -72,7 +71,7 @@ class App extends React.Component {
       .web3
       .eth
       .getAccounts((error, accounts) => {
-        this.updateBalance(accounts[0])
+        this.updateAccountProps(accounts[0])
 
         simpleStorage
           .deployed()
@@ -100,7 +99,9 @@ class App extends React.Component {
       <CssBaseline>
         <ThemeProvider>
           <AppContainer>
-            <Header balance={this.state.accountBalance}/>
+            <Header balance={this.state.accountBalance} accountAddress={this.state.accountAddress} />
+
+            <BettingScreen />
           </AppContainer>
         </ThemeProvider>
       </CssBaseline>
