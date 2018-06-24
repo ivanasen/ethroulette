@@ -6,17 +6,26 @@ import BettingHistory from '../components/BettingHistory'
 const BettingRoot = styled.div `
   display: flex;
   flex-direction: column;
-  margin: 20px auto;
+  margin: 0px auto;
   width: 100%;
-  height: 100vh;
   max-width: 1100px;
 `
+export default class BettingScreen extends React.Component {
 
-export default(props) => {
-  return (
-    <BettingRoot>
-      <BettingRoulette/>
-      <BettingHistory/>
-    </BettingRoot>
-  )
+  constructor(props) {
+    super(props)
+  }
+
+  handleSingleBetPlace(betUnit, number) {
+    this.props.onSingleBetPlace(betUnit, number)
+  }
+
+  render() {
+    return (
+      <BettingRoot>
+        <BettingRoulette betUnit={0.002} onSingleBetPlace={this.handleSingleBetPlace}/>
+        <BettingHistory/>
+      </BettingRoot>
+    )
+  }
 }

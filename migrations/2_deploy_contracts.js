@@ -1,5 +1,7 @@
-var SimpleStorage = artifacts.require("./SimpleStorage.sol");
+var Roulette = artifacts.require("./Roulette.sol");
+
+val REQUIRED_BLOCKS = 1;
 
 module.exports = function(deployer) {
-  deployer.deploy(SimpleStorage);
+  deployer.deploy(Roulette, REQUIRED_BLOCKS);
 };
