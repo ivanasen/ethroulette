@@ -1,5 +1,6 @@
 import React from 'react'
 import RouletteContract from '../build/contracts/Roulette.json'
+import SimpleRouletteContract from '../build/contracts/RouletteSimple.json'
 import getWeb3 from './utils/getWeb3'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import styled from 'styled-components'
@@ -63,7 +64,8 @@ class App extends React.Component {
      */
 
     const contract = require('truffle-contract')
-    const roulette = contract(RouletteContract)
+    // const roulette = contract(RouletteContract)
+    const roulette = contract(SimpleRouletteContract)
     this.setState({ roulette })
     roulette.setProvider(this.state.web3.currentProvider)
 
@@ -109,6 +111,7 @@ class App extends React.Component {
       const betInWei = this.state.web3.toWei(betUnit)
       rouletteInstance.betSingle(number, { from: this.state.accountAddress, value:  betInWei, gasLimit: 5000000 })
     })
+
 
   }
 
