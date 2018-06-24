@@ -4,7 +4,6 @@ import SimpleRouletteContract from '../build/contracts/RouletteSimple.json'
 import getWeb3 from './utils/getWeb3'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import styled from 'styled-components'
-// import {Drizzle, generateStore} from 'drizzle'
 
 import ThemeProvider from './components/ThemeProvider'
 import Header from './components/Header'
@@ -66,7 +65,7 @@ class App extends React.Component {
     const contract = require('truffle-contract')
     // const roulette = contract(RouletteContract)
     const roulette = contract(SimpleRouletteContract)
-    this.setState({ roulette })
+    this.setState({roulette})
     roulette.setProvider(this.state.web3.currentProvider)
 
     // Declaring this for later so we can chain functions on SimpleStorage.
@@ -103,16 +102,67 @@ class App extends React.Component {
       alert('You don\'t have enough balance.')
     }
 
-    this.state.roulette
-    .deployed()
-    .then((instance) => {
-      rouletteInstance = instance
-      console.log(rouletteInstance)
-      const betInWei = this.state.web3.toWei(betUnit)
-      rouletteInstance.betSingle(number, { from: this.state.accountAddress, value:  betInWei, gasLimit: 5000000 })
-    })
+    this
+      .state
+      .roulette
+      .deployed()
+      .then((instance) => {
+        rouletteInstance = instance
+        console.log(rouletteInstance)
+        const betInWei = this
+          .state
+          .web3
+          .toWei(betUnit)
+        rouletteInstance.betSingle(number, {
+          from: this.state.accountAddress,
+          value: betInWei,
+          gasLimit: 5000000
+        })
+      })
+  }
 
+  handleEvenBetPlace = (betUnit) => {
+    let rouletteInstance = null
 
+    if (betUnit >= this.state.accountBalance) {
+      alert('You don\'t have enough balance.')
+    }
+
+    this
+      .state
+      .roulette
+      .deployed()
+      .then((instance) => {
+        rouletteInstance = instance
+        console.log(rouletteInstance)
+        const betInWei = this
+          .state
+          .web3
+          .toWei(betUnit)
+        rouletteInstance.betEven({from: this.state.accountAddress, value: betInWei, gasLimit: 5000000})
+      })
+  }
+
+  handleOddBetPlace = (betUnit) => {
+    let rouletteInstance = null
+
+    if (betUnit >= this.state.accountBalance) {
+      alert('You don\'t have enough balance.')
+    }
+
+    this
+      .state
+      .roulette
+      .deployed()
+      .then((instance) => {
+        rouletteInstance = instance
+        console.log(rouletteInstance)
+        const betInWei = this
+          .state
+          .web3
+          .toWei(betUnit)
+        rouletteInstance.betOdd({from: this.state.accountAddress, value: betInWei, gasLimit: 5000000})
+      })
   }
 
   render() {
@@ -124,7 +174,10 @@ class App extends React.Component {
               balance={this.state.accountBalance}
               accountAddress={this.state.accountAddress}/>
 
-            <BettingScreen onSingleBetPlace={this.handleSingleBetPlace}/>
+            <BettingScreen
+              onSingleBetPlace={this.handleSingleBetPlace}
+              onEvenBetPlace={this.handleEvenBetPlace}
+              onOddBetPlace={this.handleOddBetPlace}/>
           </AppContainer>
         </ThemeProvider>
       </CssBaseline>

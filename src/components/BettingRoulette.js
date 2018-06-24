@@ -8,7 +8,6 @@ const RouletteRoot = styled.div `
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 300px;
   margin-bottom: 80px;
   align-items: center;
   margin-top: 20px;
@@ -50,7 +49,21 @@ class BettingRoulette extends React.Component {
   }
 
   handleSingleBetPlace = () => {
-    this.props.onSingleBetPlace(this.state.betUnit, this.state.betNumber)
+    this
+      .props
+      .onSingleBetPlace(this.state.betUnit, this.state.betNumber)
+  }
+
+  handleEvenBetPlace = () => {
+    this
+      .props
+      .onEvenBetPlace(this.state.betUnit)
+  }
+
+  handleOddBetPlace = () => {
+    this
+      .props
+      .onOddBetPlace(this.state.betUnit)
   }
 
   handleReset = () => {
@@ -124,11 +137,22 @@ class BettingRoulette extends React.Component {
         }}
           margin="normal"/>
 
+        <MarginButton variant="contained" color="secondary" onClick={this.handleEvenBetPlace}>
+          Even Bet
+        </MarginButton>
+
+        <MarginButton variant="contained" color="secondary" onClick={this.handleOddBetPlace}>
+          Odd Bet
+        </MarginButton>
+
         <ButtonBar>
-          <MarginButton color="secondary" onClick={this.handleReset}>
+          <MarginButton variant="contained" color="secondary" onClick={this.handleReset}>
             Reset Bet
           </MarginButton>
-          <MarginButton variant="contained" color="secondary" onClick={this.handleSingleBetPlace}>
+          <MarginButton
+            variant="contained"
+            color="secondary"
+            onClick={this.handleSingleBetPlace}>
             Place Bet
           </MarginButton>
         </ButtonBar>

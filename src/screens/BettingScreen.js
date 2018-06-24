@@ -16,14 +16,14 @@ export default class BettingScreen extends React.Component {
     super(props)
   }
 
-  handleSingleBetPlace = (betUnit, number) => {
-    this.props.onSingleBetPlace(betUnit, number)
-  }
-
   render() {
     return (
       <BettingRoot>
-        <BettingRoulette betUnit={0.002} onSingleBetPlace={this.handleSingleBetPlace}/>
+        <BettingRoulette 
+          betUnit={0.002} 
+          onSingleBetPlace={this.props.onSingleBetPlace}
+          onEvenBetPlace={this.props.onEvenBetPlace} 
+          onOddBetPlace={this.props.onOddBetPlace} />
         <BettingHistory/>
       </BettingRoot>
     )
