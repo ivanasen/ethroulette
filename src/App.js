@@ -94,10 +94,14 @@ class App extends React.Component {
   }
 
   handleSingleBetPlace(betUnit, number) {
-    roulette
+    let rouletteInstance = null
+
+    this.state.roulette
     .deployed()
     .then((instance) => {
       rouletteInstance = instance
+
+      
     })
 
   }
