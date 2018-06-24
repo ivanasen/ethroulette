@@ -82,7 +82,6 @@ class App extends React.Component {
           .deployed()
           .then((instance) => {
             rouletteInstance = instance
-
             // Stores a given value, 5 by default. return simpleStorageInstance.set(5,
             // {from: accounts[0]})
           })
@@ -93,15 +92,22 @@ class App extends React.Component {
       })
   }
 
-  handleSingleBetPlace(betUnit, number) {
+  handleSingleBetPlace = (betUnit, number) => {
     let rouletteInstance = null
+
+    console.log(betUnit, number)
+
+    if (betUnit >= this.state.accountBalance) {
+      alert('You don\'t have enough balance.')
+    }
 
     this.state.roulette
     .deployed()
     .then((instance) => {
       rouletteInstance = instance
-
-      
+      console.log(rouletteInstance)
+      const betInWei = this.state.web3.toWei(betUnit)
+      rouletteInstance.betSingle(number, { from: this.state.accountAddress, value:  betInWei, gasLimit: 5000000 })
     })
 
   }

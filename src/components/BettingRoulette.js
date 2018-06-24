@@ -50,7 +50,7 @@ class BettingRoulette extends React.Component {
   }
 
   handleSingleBetPlace = () => {
-    this.props.onSingleBetPlace(betUnit, betNumber)
+    this.props.onSingleBetPlace(this.state.betUnit, this.state.betNumber)
   }
 
   handleReset = () => {

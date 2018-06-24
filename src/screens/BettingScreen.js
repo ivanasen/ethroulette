@@ -16,7 +16,7 @@ export default class BettingScreen extends React.Component {
     super(props)
   }
 
-  handleSingleBetPlace(betUnit, number) {
+  handleSingleBetPlace = (betUnit, number) => {
     this.props.onSingleBetPlace(betUnit, number)
   }
 
